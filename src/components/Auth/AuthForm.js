@@ -60,14 +60,14 @@ const AuthForm = () => {
       })
       .then((data) => {
         //! Max approach in dealing with dates as strings and no
-        // const expirationTime = new Date(
-        //   new Date().getTime() + +data.expiresIn * 1000
-        // );
-        // authCtx.logInHandler(data.idToken, expirationTime.toISOString());
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        authCtx.logInHandler(data.idToken, expirationTime.toISOString());
+        history.replace("/");
 
         //* better easier approach
-        authCtx.login(data.idToken, Date.now() + data.expiresIn * 1000);
-        history.replace("/");
+        // authCtx.logInHandler(data.idToken, Date.now() + data.expiresIn * 1000);
       })
       .catch((err) => {
         alert(err.message);
